@@ -4,6 +4,7 @@
 // that code so it'll be compiled.
 import 'bootstrap'
 import './src/application.scss'
+import "bootswatch/dist/pulse/bootstrap.min.css"
 
 require("@rails/ujs").start()
 require("turbolinks").start()
