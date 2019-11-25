@@ -1,0 +1,15 @@
+<div class="navbar navbar-expand-sm navbar-light navbar-color navbar-text-color justify-content-between">
+  <h5><%= link_to 'Home', root_path %></h5>
+
+  <% if user_signed_in? %>
+    <h5>
+      <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete %>
+    </h5>
+  <% else %>
+    <h5>
+      <%= link_to "Se connecter", new_user_session_path %>
+      /
+      <%= link_to "S'inscrire", new_user_registration_path %>
+    </h5>
+  <% end %>
+</div>
