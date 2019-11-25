@@ -14,7 +14,6 @@ module Users
     
     def send_welcome_email(input)
       UserMailer.with(user: @user).welcome_email.deliver_now
-      Success(@user.attributes)
     end
   end
 end
