@@ -4,12 +4,12 @@ require_relative '../../../app/transactions/users/create_transaction'
 
 RSpec.describe "User::CreateTransaction", type: :transaction do
   context "Create a user" do
-    it "should create a user if valid attributes given" do
+    it "creates a user if valid attributes given" do
       expect { ::Users::CreateTransaction.call(valid_user_attributes) }
         .to change { User.count }.by(1)
     end
 
-    it "should not create a user if invalid attributes given" do
+    it "does not create a user if invalid attributes given" do
       create(:user, email: 'nathan.patreau@capsens.fr')
       expect { ::Users::CreateTransaction.call(invalid_user_attributes) }
         .not_to change { User.count }
@@ -17,13 +17,17 @@ RSpec.describe "User::CreateTransaction", type: :transaction do
   end
 
   context "Send welcome mail", type: :mailer do
-    it "should send an email to user email" do
+    it "sends an email" do
       expect { ::Users::CreateTransaction.call(valid_user_attributes) }
         .to change { ActionMailer::Base.deliveries.count }.by(1)
-      expect(ActionMailer::Base.deliveries.last.subject).to include('Welcome')
     end
 
-    it "should raise an error if email not send" do
+    it "sends a welcoming email to user" do
+      expect_any_instance_of(UserMailer).to receive(:welcome_email)
+      ::Users::CreateTransaction.call(valid_user_attributes)
+    end
+
+    it "does not send an email not send" do
       create(:user, email: 'nathan.patreau@capsens.fr')
       expect { ::Users::CreateTransaction.call(invalid_user_attributes) }
         .not_to change { ActionMailer::Base.deliveries.count }
