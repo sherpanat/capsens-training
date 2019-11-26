@@ -1,7 +1,3 @@
-require 'rails_helper'
-require 'dry/transaction'
-require_relative '../../../app/transactions/users/create_transaction'
-
 RSpec.describe "User::CreateTransaction", type: :transaction do
   context "Create a user" do
     it "creates a user if valid attributes given" do
