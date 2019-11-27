@@ -2,16 +2,16 @@ RSpec.describe Users::RegistrationsController do
   before(:each) do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
-  subject { post :create, params: { user: user_attributes } }
 
   describe "GET new" do
-    it "test" do
+    it "assigns new User" do
       get :new
       expect(assigns(:resource)).to be_a_new(User)
     end
   end
 
   describe "POST create" do
+    subject { post :create, params: { user: user_attributes } }
     context "with valid attributes" do
       let(:user_attributes) { attributes_for(:user) }
 
