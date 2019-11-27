@@ -1,1 +1,7 @@
-<h1>Test</h1>
+
+<% if user_signed_in? %>
+  <h1>Bienvenue <%= current_user.first_name %> <%= current_user.last_name %></h1>
+<% else %>  
+  <h1>Bienvenue visiteur</h1>
+<% end %>
+
