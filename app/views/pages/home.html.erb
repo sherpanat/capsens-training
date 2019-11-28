@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <h1>Bienvenue <%= full_name(current_user.first_name, current_user.last_name) %></h1>
+  <%= link_to "Mon Dashboard", dashboard_path, class: "btn btn-primary btn-lg" %>
 <% else %>  
   <h1>Bienvenue visiteur</h1>
 <% end %>
-
