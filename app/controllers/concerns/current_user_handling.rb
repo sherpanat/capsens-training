@@ -5,4 +5,3 @@ module CurrentUserHandling
       super&.decorate
   end
 end
-  
