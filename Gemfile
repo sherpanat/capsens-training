@@ -24,6 +24,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'dry-transaction'
+gem 'draper'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
