@@ -1,4 +1,4 @@
-module My  
+module Users
   class DashboardsController < ApplicationController
     before_action :authenticate_user!
 
