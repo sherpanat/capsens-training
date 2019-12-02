@@ -24,6 +24,10 @@ ActiveAdmin.register User do
     active_admin_comments
   end
 
+  action_item :login_as, only: :show do
+    link_to 'Log as User', admin_user_sessions_path(user_id: user.id), method: :post, :target => '_blank'
+  end
+
   filter :email
   filter :first_name
   filter :last_name
