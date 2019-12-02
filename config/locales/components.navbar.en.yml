@@ -1,0 +1,6 @@
+en:
+  components:
+    navbar:
+      login: Login
+      signup: Signup
+      logout: Logout

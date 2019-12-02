@@ -1,0 +1,6 @@
+fr:
+  components:
+    navbar:
+      login: Se connecter
+      signup: S'inscrire
+      logout: Se déconnecter
