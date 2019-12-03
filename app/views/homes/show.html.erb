@@ -1,0 +1,6 @@
+<% if user_signed_in? %>
+  <h1><%= t('.welcome') %> <%= decorated_user.full_name %></h1>
+  <%= link_to t('.dashboard'), users_dashboards_path, class: "btn btn-primary btn-lg" %>
+<% else %>
+  <h1><%= t('.welcome') %> <%= t('.visitor').downcase %></h1>
+<% end %>

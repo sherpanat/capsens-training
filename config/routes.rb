@@ -3,5 +3,8 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   devise_for :users, controllers: { registrations: 'users/registrations' }
-  root to: "pages#home"
+  root to: "homes#show"
+  namespace :users do
+    resource :dashboards, only: :show
+  end
 end
