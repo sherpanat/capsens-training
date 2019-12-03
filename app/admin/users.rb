@@ -29,8 +29,7 @@ ActiveAdmin.register User do
   end
 
   member_action :login_as do
-    user = User.find(params[:id])
-    bypass_sign_in(user)
+    bypass_sign_in(resource)
     redirect_to root_path
   end
 
