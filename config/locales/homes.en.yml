@@ -2,3 +2,5 @@ en:
   homes:
     show:
       dashboard: "My dashboard"
+      welcome: "Welcome"
+      visitor: "Visitor"

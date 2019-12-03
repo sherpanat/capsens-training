@@ -1,0 +1,6 @@
+en:
+  users:
+    dashboards:
+      show:
+        user_dashboard: "%{user_first_name} dashboard"
+        edit_profil: "Edit my profile"
