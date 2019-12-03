@@ -25,7 +25,13 @@ ActiveAdmin.register User do
   end
 
   action_item :login_as, only: :show do
-    link_to 'Log as User', admin_user_sessions_path(user_id: user.id), method: :post, :target => '_blank'
+    link_to 'Log as User', login_as_admin_user_path(user), :target => '_blank'
+  end
+
+  member_action :login_as do
+    user = User.find(params[:id])
+    bypass_sign_in(user)
+    redirect_to root_path
   end
 
   filter :email
