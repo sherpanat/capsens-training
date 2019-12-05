@@ -1,7 +1,14 @@
 ActiveAdmin.register Project do
   permit_params :name, :short_description, :long_description, :target_amount, :category_id, :thumbnail, :landscape
 
-  filter :category
+  index do
+    selectable_column
+    column :name
+    column :target_amount
+    column :created_at
+    actions
+  end
+
   filter :name
   filter :target_amount
   filter :created_at
@@ -39,18 +46,28 @@ ActiveAdmin.register Project do
   end
 
   controller do
-    def create
-      if Project.create(project_params)
+    def create(options = {}, &block)
+      project = Project.new(project_params)
+      if project.save
         redirect_to admin_projects_path
       else
-        render :new
+        super(options) do |success, failure|
+          block.call(success, failure) if block
+          failure.html { render :new }
+        end
       end
     end
 
-    def update
+    def update(options = {}, &block)
       project = Project.find(params[:id])
-      project.update(project_params)
-      redirect_to admin_project_path(project)
+      if project.update(project_params)
+        redirect_to admin_project_path(project)
+      else
+        super(options) do |success, failure|
+          block.call(success, failure) if block
+          failure.html { render :edit }
+        end
+      end
     end
 
     private
@@ -60,47 +77,3 @@ ActiveAdmin.register Project do
     end
   end
 end
-
-      # result = Users::CreateTransaction.call(sign_up_params)
-      # if result.success
-      #   @resource = result.success
-      #   sign_up(resource_name, @resource)
-      #   respond_with @resource, location: after_sign_up_path_for(@resource)        
-      # else
-      #   @resource = result.failure[:user]
-      #   render :new
-
-
-# controller do
-
-#     def create
-#       attrs = permitted_params[:firmware_image]
-
-#       @firmware_image = FirmwareImage.create()
-
-#       @firmware_image[:firmware_image_filename] = attrs[:firmware_image].original_filename
-#       @firmware_image[:firmware_image] = attrs[:firmware_image].read
-
-#       if @firmware_image.save
-#         redirect_to admin_firmware_image_path(@firmware_image)
-#       else
-#         render :new
-#       end
-#     end
-
-#     def update
-#       attrs = permitted_params[:firmware_image]
-
-#       @firmware_image = FirmwareImage.where(id: params[:id]).first!
-#       @firmware_image.firmware_level = attrs[:firmware_level]
-
-#       @firmware_image[:firmware_image_filename] = attrs[:firmware_image].original_filename
-#       @firmware_image[:firmware_image] = attrs[:firmware_image].read
-
-#       if @firmware_image.save
-#         redirect_to admin_firmware_image_path(@firmware_image)
-#       else
-#         render :edit
-#       end
-#     end
-#   end
