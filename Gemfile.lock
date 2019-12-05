@@ -312,6 +312,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    seedbank (0.5.0)
+      rake (>= 10.0)
     selenium-webdriver (3.142.6)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -384,6 +386,7 @@ DEPENDENCIES
   rails-i18n (~> 6.0.0)
   rspec-rails (= 4.0.0.beta3)
   sass-rails (~> 5)
+  seedbank
   selenium-webdriver
   shrine
   spring
