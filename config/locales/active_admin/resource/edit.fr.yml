@@ -1,0 +1,5 @@
+fr:
+  active_admin:
+    resource:
+      edit:
+        no_image_yet: "Pas encore d'image"
