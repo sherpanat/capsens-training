@@ -3,5 +3,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :trackable
 
+  has_many :contributions
+  has_many :projects, through: :contributions
+
   validates :first_name, :last_name, :birthdate, presence: true
 end
