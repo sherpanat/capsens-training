@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :counterpart_level_1, Counterpart do
+  factory :counterpart_level_1, class: Counterpart do
     threshold { 20 }
     level { 1 }
     description { Faker::Company.catch_phrase }
@@ -7,7 +7,7 @@ FactoryBot.define do
     association :project, factory: :project
   end
 
-  factory :counterpart_level_2, Counterpart do
+  factory :counterpart_level_2, class: Counterpart do
     threshold { 100 }
     level { 2 }
     description { Faker::Company.catch_phrase }
