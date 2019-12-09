@@ -10,6 +10,8 @@ class Project < ApplicationRecord
   validates :name, :target_amount, presence: true
 
   def first_level_reached?(amount)
-    amount >= counterparts.find_by(level: 1).threshold
+    lower_counterpart = counterparts.find_by(level: 1)
+    return false unless lower_counterpart
+    amount >= lower_counterpart.threshold
   end
 end
