@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 2019_12_06_160657) do
 
   create_table "counterparts", force: :cascade do |t|
     t.integer "threshold"
-    t.integer "level"
     t.string "description"
     t.integer "stock"
     t.bigint "project_id", null: false
