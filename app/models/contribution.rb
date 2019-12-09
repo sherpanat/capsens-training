@@ -9,7 +9,7 @@ class Contribution < ApplicationRecord
   
   def add_counterpart
     self.counterpart = counterpart_to_win if counterpart_to_win.available?
-    save
+    counterpart.usage if save
   end
 
   def first_level_of_project_reached?

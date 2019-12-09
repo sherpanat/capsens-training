@@ -7,4 +7,8 @@ class Counterpart < ApplicationRecord
   def available?
     stock > 0
   end
+
+  def usage
+    update(stock: self.stock - 1)
+  end
 end
