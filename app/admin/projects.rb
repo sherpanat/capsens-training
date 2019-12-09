@@ -46,36 +46,4 @@ ActiveAdmin.register Project do
     end
     f.actions
   end
-
-  controller do
-    def create(options = {}, &block)
-      project = Project.new(project_params)
-      if project.save
-        redirect_to admin_projects_path
-      else
-        super(options) do |success, failure|
-          block.call(success, failure) if block
-          failure.html { render :new }
-        end
-      end
-    end
-
-    def update(options = {}, &block)
-      project = Project.find(params[:id])
-      if project.update(project_params)
-        redirect_to admin_project_path(project)
-      else
-        super(options) do |success, failure|
-          block.call(success, failure) if block
-          failure.html { render :edit }
-        end
-      end
-    end
-
-    private
-
-    def project_params
-      params.require(:project).permit(:name, :short_description, :long_description, :target_amount, :category_id, :thumbnail, :landscape)
-    end
-  end
 end
