@@ -39,10 +39,16 @@ ActiveAdmin.register Project do
       f.input :long_description
       f.input :target_amount
       f.input :category, as: :select
-      f.input :thumbnail, as: :file,
+      f.input(
+        :thumbnail,
+        as: :file,
         hint: f.object.thumbnail.present? ? image_tag(f.object.thumbnail.url) : content_tag(:span, t('.no_image_yet'))
-      f.input :landscape, as: :file,
+      )
+      f.input(
+        :landscape,
+        as: :file,
         hint: f.object.landscape.present? ? image_tag(f.object.landscape.url) : content_tag(:span, t('.no_image_yet'))
+      )
     end
     f.actions
   end
