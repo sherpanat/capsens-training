@@ -1,4 +1,5 @@
 ActiveAdmin.register Counterpart do
+  menu false
   actions :all, except: [:index, :show]
   permit_params :description, :threshold, :stock, :project_id
 
