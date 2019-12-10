@@ -8,10 +8,4 @@ class Project < ApplicationRecord
   has_many :counterparts
 
   validates :name, :target_amount, presence: true
-
-  def first_level_reached?(amount)
-    lower_counterpart = counterparts.find_by(level: 1)
-    return false unless lower_counterpart
-    amount >= lower_counterpart.threshold
-  end
 end

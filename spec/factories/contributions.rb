@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :contribution do
-    association :user, factory: :user
-    association :project, factory: :project
+    association :user
+    association :project
     amount { 20 }
   end
 end
