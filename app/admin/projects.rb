@@ -16,33 +16,30 @@ ActiveAdmin.register Project do
   show do |project|
     columns do
       column do
-        span "Pourcentage de completion : #{project.decorate.percentage_of_completion}"
+        span t('.percentage_of_completion', percentage: project.decorate.percentage_of_completion)
       end
       column do
-        span "Total collecté : #{project.decorate.amount_invested}"
+        span t('.total_invested', amount: project.decorate.amount_invested)
       end
       column do
-        span "Contribution la plus haute : #{project.contributions.order(amount: :desc).first.amount}"
+        span t('.higher_contribution', amount: project.contributions.order(amount: :desc).first.amount)
       end
       column do
-        span "Contribution la plus basse : #{project.contributions.order(amount: :desc).last.amount}"
+        span t('.lower_contribution', amount: project.contributions.order(amount: :desc).first.amount)
       end
     end
 
 
-    panel "Contributions actuelles" do
+    panel t('.current_contributions') do
       table_for project.contributions do
-        column "Liste des investisseurs" do |contribution|
+        column t('.contributors_list') do |contribution|
           link_to contribution.user.decorate.full_name, admin_user_path(contribution.user)
         end
-        column :amount
-        column "Montant investi" do |contribution|
-          contribution.amount
-        end
-        column :counterpart do |contribution|
+        column t('.amount_invested'), :amount
+        column t('.chosen_counterpart') do |contribution|
           contribution.counterpart&.description
         end
-        column :created_at
+        column t('.investment_date'), :created_at
       end
     end
 

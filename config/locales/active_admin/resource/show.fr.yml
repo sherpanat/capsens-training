@@ -1,0 +1,13 @@
+fr:
+  active_admin:
+    resource:
+      show:
+        percentage_of_completion: "Pourcentage de completion : %{percentage}%"
+        total_invested: "Total collecté : %{amount}"
+        higher_contribution: "Contribution la plus haute : %{amount}"
+        lower_contribution: "Contribution la plus basse : %{amount}"
+        current_contributons: "Contributions actuelles"
+        contributors_list: "Liste des investisseurs"
+        amount_invested: "Montant investi"
+        chosen_counterpart: "Contrepartie choisie"
+        investment_date: "Date de l'investissement"
