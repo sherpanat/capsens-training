@@ -13,6 +13,10 @@ ActiveAdmin.register Project do
   filter :target_amount
   filter :created_at
 
+  action_item :new, only: :show do
+    link_to t('.add_a_counterpart'), new_admin_counterpart_path
+  end
+
   show do |project|
     columns do
       column do
@@ -29,7 +33,6 @@ ActiveAdmin.register Project do
       end
     end
 
-
     panel t('.current_contributions') do
       table_for project.contributions do
         column t('.contributors_list') do |contribution|
@@ -40,6 +43,19 @@ ActiveAdmin.register Project do
           contribution.counterpart&.description
         end
         column t('.investment_date'), :created_at
+      end
+    end
+
+    panel t('.counterparts') do
+      table_for project.counterparts do
+        column t('.counterpart_description'), :description
+        column t('.counterpart_price'), :threshold
+        column t('.edit') do |counterpart|
+          link_to t('.edit'), edit_admin_counterpart_path(counterpart)
+        end
+        column t('.delete') do |counterpart|
+          link_to t('.delete'), admin_counterpart_path(counterpart), method: :delete
+        end
       end
     end
 
