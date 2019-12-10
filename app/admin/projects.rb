@@ -14,26 +14,38 @@ ActiveAdmin.register Project do
   filter :created_at
 
   show do |project|
-    panel "Contributions actuelles" do
-      # attributes_table_for project.users do
-      #   row :full_name do |user|
-      #     link_to user.decorate.full_name, admin_user_path(user)
-      #   end
-      # end
+    columns do
+      column do
+        span "Pourcentage de completion : #{project.decorate.percentage_of_completion}"
+      end
+      column do
+        span "Total collecté : #{project.decorate.amount_invested}"
+      end
+      column do
+        span "Contribution la plus haute : #{project.contributions.order(amount: :desc).first.amount}"
+      end
+      column do
+        span "Contribution la plus basse : #{project.contributions.order(amount: :desc).last.amount}"
+      end
+    end
 
+
+    panel "Contributions actuelles" do
       table_for project.contributions do
         column "Liste des investisseurs" do |contribution|
           link_to contribution.user.decorate.full_name, admin_user_path(contribution.user)
         end
         column :amount
-        column "Contrepartie" do |contribution|
-          contribution.amount 
+        column "Montant investi" do |contribution|
+          contribution.amount
+        end
+        column :counterpart do |contribution|
+          contribution.counterpart&.description
         end
         column :created_at
       end
     end
-    # Le nom de la contrepartie selectionné si il y en a une
-    render 'current_investment_info', { project: project }
+
     attributes_table do
       row :name
       row :short_description
@@ -51,10 +63,6 @@ ActiveAdmin.register Project do
     end
     active_admin_comments
   end
-
-  # action_item :view, only: :show do
-  #   link_to "Show", admin_user_path(user)
-  # end
 
   form do |f|
     f.inputs do
