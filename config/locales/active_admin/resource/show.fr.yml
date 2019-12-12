@@ -15,5 +15,7 @@ fr:
         counterpart_description: "Description"
         counterpart_price: "Palier"
         add_a_counterpart: "Ajouter une contrepartie"
+        end_collect: "Achever la collecte"
+        preview: "Prévisualiser"
         edit: "Modifier"
         delete: "Supprimer"
