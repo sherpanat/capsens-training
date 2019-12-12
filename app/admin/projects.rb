@@ -22,10 +22,10 @@ ActiveAdmin.register Project do
         span t('.total_invested', amount: project.decorate.amount_invested)
       end
       column do
-        span t('.higher_contribution', amount: project.contributions.order(amount: :desc).first.amount)
+        span t('.higher_contribution', amount: project.higher_contribution)
       end
       column do
-        span t('.lower_contribution', amount: project.contributions.order(amount: :desc).first.amount)
+        span t('.lower_contribution', amount: project.lower_contribution)
       end
     end
 
