@@ -7,5 +7,11 @@ FactoryBot.define do
     association :category
     thumbnail_data { ImageUploader.new(:store).upload(File.new(Rails.root.join('app/assets/images/seed/LITA_thumbnail.png'))).to_json }
     landscape_data { ImageUploader.new(:store).upload(File.new(Rails.root.join('app/assets/images/seed/LITA_landscape.jpg'))).to_json }
+
+    factory :project_with_counterparts do
+      after(:create) do |project|
+        project.counterparts << create(:counterpart, project: project)
+      end
+    end
   end
 end
