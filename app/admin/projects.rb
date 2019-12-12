@@ -18,7 +18,15 @@ ActiveAdmin.register Project do
   end
 
   action_item :end_collect, only: :show do
-    link_to 'End collect', end_collect_admin_project_path(resource) if resource.ongoing?
+    link_to t('.end_collect'), end_collect_admin_project_path(resource) if resource.ongoing?
+  end
+
+  action_item :preview, only: :show do
+    link_to t('.preview'), preview_admin_project_path(resource), target: '_blank'
+  end
+
+  member_action :preview do
+    redirect_to project_path(resource)
   end
 
   member_action :end_collect do
