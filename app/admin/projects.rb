@@ -14,7 +14,7 @@ ActiveAdmin.register Project do
   filter :created_at
 
   action_item :new, only: :show do
-    link_to t('.add_a_counterpart'), new_admin_counterpart_path
+    link_to t('.add_a_counterpart'), new_admin_counterpart_path if resource.draft? || resource.upcoming?
   end
 
   show do |project|
@@ -26,10 +26,10 @@ ActiveAdmin.register Project do
         span t('.total_invested', amount: project.decorate.amount_invested)
       end
       column do
-        span t('.higher_contribution', amount: project.contributions.order(amount: :desc).first.amount)
+        span t('.higher_contribution', amount: project.contributions.order(amount: :desc).first&.amount)
       end
       column do
-        span t('.lower_contribution', amount: project.contributions.order(amount: :desc).first.amount)
+        span t('.lower_contribution', amount: project.contributions.order(amount: :desc).first&.amount)
       end
     end
 
