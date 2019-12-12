@@ -35,5 +35,24 @@ RSpec.describe Project do
   end
 
   context "Project end of collect" do
+    describe "with collect completed" do
+      let(:project) { create(:project_with_counterparts, target_amount: 100) }
+      it do
+        project.prepare!
+        project.publish!
+        create(:contribution, project: project, amount: 200)
+        expect(project).to transition_from(:ongoing).to(:success).on_event(:end_collect)
+      end
+    end
+
+    describe "with collect not completed" do
+      let(:project) { create(:project_with_counterparts, target_amount: 1_000_000) }
+      it do
+        project.prepare!
+        project.publish!
+        create(:contribution, project: project, amount: 100)
+        expect(project).to transition_from(:ongoing).to(:failure).on_event(:end_collect)
+      end
+    end
   end
 end

@@ -17,6 +17,15 @@ ActiveAdmin.register Project do
     link_to t('.add_a_counterpart'), new_admin_counterpart_path if resource.draft? || resource.upcoming?
   end
 
+  action_item :end_collect, only: :show do
+    link_to 'End collect', end_collect_admin_project_path(resource) if resource.ongoing?
+  end
+
+  member_action :end_collect do
+    resource.end_collect!
+    redirect_to admin_project_path(resource)
+  end
+
   show do |project|
     columns do
       column do

@@ -17,13 +17,17 @@ class Project < ApplicationRecord
     end
 
     event :end_collect do
-      transitions from: :ongoing, to: :success
+      transitions from: :ongoing, to: :success, guard: :project_completed?
       transitions from: :ongoing, to: :failure
     end
   end
 
   def ready_for_publishing?
     category && (counterparts.count > 0)
+  end
+
+  def project_completed?
+    decorate.percentage_of_completion >= 100
   end
 
   belongs_to :category, optional: true
