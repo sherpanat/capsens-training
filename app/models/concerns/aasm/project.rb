@@ -10,7 +10,7 @@ module Aasm
         state :upcoming, :ongoing, :success, :failure
 
         event :prepare do
-          transitions from: :draft, to: :upcoming, guard: [:name?, :short_description?, :long_description?, :thumbnail, :landscape]
+          transitions from: :draft, to: :upcoming, guard: :ready_for_preparation?
         end
 
         event :publish do
@@ -22,6 +22,10 @@ module Aasm
           transitions from: :ongoing, to: :failure
         end
       end
+    end
+
+    def ready_for_preparation?
+      name? && short_description? && long_description? && thumbnail && landscape
     end
 
     def ready_for_publishing?
