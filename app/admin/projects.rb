@@ -1,6 +1,7 @@
 ActiveAdmin.register Project do
   permit_params :name, :short_description, :long_description, :target_amount, :category_id, :thumbnail, :landscape
   decorate_with ProjectDecorator
+  includes :contributions
 
   index do
     selectable_column
