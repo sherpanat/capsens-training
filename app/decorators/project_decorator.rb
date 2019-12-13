@@ -6,14 +6,20 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def amount_invested
-    contributions.pluck(:amount).sum
+    ordered_contributions_amount.sum
   end
 
   def higher_contribution
-    contributions.order(amount: :desc).first&.amount
+    ordered_contributions_amount.first
   end
 
   def lower_contribution
-    contributions.order(amount: :desc).last&.amount
+    ordered_contributions_amount.last
+  end
+
+  private
+
+  def ordered_contributions_amount
+    contributions.order(amount: :desc).pluck(:amount)
   end
 end
