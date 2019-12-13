@@ -1,5 +1,7 @@
 ActiveAdmin.register Project do
   permit_params :name, :short_description, :long_description, :target_amount, :category_id, :thumbnail, :landscape
+  decorate_with ProjectDecorator
+  includes :contributions
 
   index do
     selectable_column
@@ -20,21 +22,21 @@ ActiveAdmin.register Project do
   show do |project|
     columns do
       column do
-        span t('.percentage_of_completion', percentage: project.decorate.percentage_of_completion)
+        span t('.percentage_of_completion', percentage: project.percentage_of_completion)
       end
       column do
-        span t('.total_invested', amount: project.decorate.amount_invested)
+        span t('.total_invested', amount: project.amount_invested)
       end
       column do
-        span t('.higher_contribution', amount: project.contributions.order(amount: :desc).first.amount)
+        span t('.higher_contribution', amount: project.higher_contribution)
       end
       column do
-        span t('.lower_contribution', amount: project.contributions.order(amount: :desc).first.amount)
+        span t('.lower_contribution', amount: project.lower_contribution)
       end
     end
 
     panel t('.current_contributions') do
-      table_for project.contributions do
+      table_for project.contributions.includes(:user, :counterpart) do
         column t('.contributors_list') do |contribution|
           link_to contribution.user.decorate.full_name, admin_user_path(contribution.user)
         end
