@@ -1,6 +1,6 @@
 en:
-  active_admin:
-    resource:
+  admin:
+    projects:
       show:
         percentage_of_completion: "Percentage of completion: %{percentage}%"
         total_invested: "Total invested: %{amount}"
