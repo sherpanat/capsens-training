@@ -8,4 +8,5 @@ class Project < ApplicationRecord
   has_many :counterparts
 
   validates :name, :target_amount, presence: true
+  validates :target_amount, numericality: { greater_than: 0, only_integer: true }
 end
