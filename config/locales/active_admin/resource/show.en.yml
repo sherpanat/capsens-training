@@ -1,0 +1,5 @@
+en:
+  active_admin:
+    resource:
+      show:
+        add_a_counterpart: "Add a counterpart"

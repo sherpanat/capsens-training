@@ -14,7 +14,6 @@ en:
         counterparts: "Counterparts"
         counterpart_description: "Description"
         counterpart_price: "Threshold"
-        add_a_counterpart: "Add a counterpart"
         edit: "Edit"
         delete: "Delete"
 
