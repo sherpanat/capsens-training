@@ -31,7 +31,7 @@ ActiveAdmin.register Project do
     end
 
     panel t('.current_contributions') do
-      table_for project.contributions do
+      table_for project.contributions.includes(:user, :counterpart) do
         column t('.contributors_list') do |contribution|
           link_to contribution.user.decorate.full_name, admin_user_path(contribution.user)
         end
