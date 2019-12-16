@@ -31,10 +31,6 @@ ActiveAdmin.register Counterpart do
     end
 
     private
-    
-    def raise_404
-      raise ActionController::RoutingError
-    end
 
     def redirect_to_project_show
       redirect_to admin_project_path(resource.project)
