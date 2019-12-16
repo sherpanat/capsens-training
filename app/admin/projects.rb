@@ -31,6 +31,7 @@ ActiveAdmin.register Project do
   end
 
   show do |project|
+    status_tag project.aasm.current_state
     columns do
       column do
         span t('.percentage_of_completion', percentage: project.decorate.percentage_of_completion)
