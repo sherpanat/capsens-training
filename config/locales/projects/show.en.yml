@@ -2,3 +2,4 @@ en:
   projects:
     show:
       target_amount: "Goal: %{amount}€"
+      contribute: "Contribute"

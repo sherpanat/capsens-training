@@ -7,5 +7,7 @@ Rails.application.routes.draw do
   namespace :users do
     resource :dashboards, only: :show
   end
-  resources :projects, only: [:show, :index]
+  resources :projects, only: [:show, :index] do
+    resources :contributions, only: [:new]
+  end
 end

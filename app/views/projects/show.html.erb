@@ -7,3 +7,7 @@
 <p><%= @project.category.name %></p>
 <br>
 <%= image_tag @project.thumbnail_url %>
+
+<% if @project.ongoing? %>
+  <%= link_to t('.contribute'), new_project_contribution_path(@project), class: "btn btn-primary" %>
+<% end %>
