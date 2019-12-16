@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :visible_projects, only: [:show, :index], if: :current_user
+  before_action :visible_projects, only: [:show, :index], unless: :current_admin_user
   before_action :all_projects, only: [:show, :index], if: :current_admin_user
 
   def index
