@@ -1,1 +1,9 @@
-<%= @project.name %>
+<%= image_tag @project.landscape_url %>
+<h2><%= @project.name %></h2>
+<h2><%= t('.target_amount', amount: @project.target_amount) %></h2>
+<span class="btn btn-secondary"><%= @project.aasm.current_state %></span>
+<p><%= @project.short_description %></p>
+<p><%= @project.long_description %></p>
+<p><%= @project.category.name %></p>
+<br>
+<%= image_tag @project.thumbnail_url %>

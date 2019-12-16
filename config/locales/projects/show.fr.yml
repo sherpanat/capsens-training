@@ -1,0 +1,4 @@
+fr:
+  projects:
+    show:
+      target_amount: "Objectif de %{amount}€"
