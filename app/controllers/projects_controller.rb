@@ -1,18 +1,24 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_admin_user!, only: :show, if: :draft_project?
+  before_action :visible_projects, only: [:show, :index], if: :current_user
+  before_action :all_projects, only: [:show, :index], if: :current_admin_user
 
   def index
-    @projects = Project.visibles
+    @projects
   end
 
   def show
-    @project ||= Project.find(params[:id])
+    @project = @projects.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render_not_found
   end
 
   private
 
-  def draft_project?
-    @project = Project.find(params[:id])
-    @project.draft?
+  def visible_projects
+    @projects = Project.visibles
+  end
+
+  def all_projects
+    @projects = Project.where.not(aasm_state: "failure")
   end
 end
