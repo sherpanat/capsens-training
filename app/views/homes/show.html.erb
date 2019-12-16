@@ -4,3 +4,5 @@
 <% else %>
   <h1><%= t('.welcome') %> <%= t('.visitor').downcase %></h1>
 <% end %>
+
+<%= link_to t('.project_list'), projects_path, class: "btn btn-danger btn-log" %>

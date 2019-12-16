@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_action :all_projects, only: [:show, :index], if: :current_admin_user
 
   def index
-    @projects
+    @projects = ProjectDecorator.decorate_collection(@projects)
   end
 
   def show
