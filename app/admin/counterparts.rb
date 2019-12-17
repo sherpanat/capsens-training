@@ -17,15 +17,21 @@ ActiveAdmin.register Counterpart do
 
   controller do
     def create
-      super { redirect_to_project_show and return if resource.valid? }
+      super do |success, failure|
+        success.html { redirect_to_project_show }
+      end
     end
 
     def update
-      super { redirect_to_project_show and return if resource.valid? }
+      super do |success, failure|
+        success.html { redirect_to_project_show }
+      end
     end
 
     def destroy
-      super { redirect_to_project_show and return if resource.valid? }
+      super do |success, failure|
+        success.html { redirect_to_project_show }
+      end
     end
 
     private
