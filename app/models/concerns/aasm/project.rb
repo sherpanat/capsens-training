@@ -3,9 +3,8 @@ module Aasm
     extend ActiveSupport::Concern
     included do
       include AASM
-      aasm whiny_transitions: false
 
-      aasm do
+      aasm whiny_transitions: false do
         state :draft, initial: true
         state :upcoming, :ongoing, :success, :failure
 
