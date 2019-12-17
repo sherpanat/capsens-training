@@ -1,7 +1,6 @@
 ActiveAdmin.register Project do
   permit_params :name, :short_description, :long_description, :target_amount, :category_id, :thumbnail, :landscape
   decorate_with ProjectDecorator
-  includes :contributions
 
   index do
     selectable_column
@@ -32,9 +31,9 @@ ActiveAdmin.register Project do
     end
 
     panel t('.current_contributions') do
-      table_for project.contributions.includes(:user, :counterpart) do
+      table_for project.contributions do
         column t('.contributors_list') do |contribution|
-          link_to contribution.user.decorate.full_name, admin_user_path(contribution.user)
+          link_to contribution.user.full_name, admin_user_path(contribution.user)
         end
         column t('.amount_invested'), :amount
         column t('.chosen_counterpart') do |contribution|
@@ -81,5 +80,11 @@ ActiveAdmin.register Project do
       )
     end
     f.actions
+  end
+
+  controller do
+    def scoped_collection
+      super.includes(contributions: :user)
+    end
   end
 end
