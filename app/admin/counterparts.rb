@@ -16,8 +16,6 @@ ActiveAdmin.register Counterpart do
   end
 
   controller do
-    # before_action :raise_404, unless: :can_add_counterpart?, only: :new
-
     def create
       super { redirect_to_project_show and return if resource.valid? }
     end
@@ -32,16 +30,8 @@ ActiveAdmin.register Counterpart do
 
     private
     
-    def raise_404
-      raise ActionController::RoutingError
-    end
-
     def redirect_to_project_show
       redirect_to admin_project_path(resource.project)
     end
-    
-    # def can_add_counterpart?
-    #   resource.draft? || resource.upcoming?
-    # end
   end
 end
