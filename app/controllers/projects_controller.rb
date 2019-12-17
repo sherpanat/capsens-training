@@ -8,8 +8,6 @@ class ProjectsController < ApplicationController
 
   def show
     @project = @projects.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render_not_found
   end
 
   private
