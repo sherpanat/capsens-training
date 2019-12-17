@@ -1,1 +1,22 @@
+<div class="d-table margin-auto">
+  <h2>Choisissez le montant de votre contribution ainsi que votre contrepartie pour <%= @project.name %></h2>
 
+  <%= form_for @contribution, url: project_contributions_path do |f| %>
+    <%= render "devise/shared/error_messages", resource: @contribution %>
+
+
+    <div class="field form-group">
+      <%= f.label :amount %><br />
+      <%= f.number_field :amount, class: "form-control"%>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label "Votre contrepartie" %><br />
+      <%= f.collection_select :project_id, @counterparts, :id, :description, class: "form-control"%>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Contribuer", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

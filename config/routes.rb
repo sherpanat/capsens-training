@@ -8,6 +8,6 @@ Rails.application.routes.draw do
     resource :dashboards, only: :show
   end
   resources :projects, only: [:show, :index] do
-    resources :contributions, only: [:new]
+    resources :contributions, only: [:new, :create]
   end
 end
