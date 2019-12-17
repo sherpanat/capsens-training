@@ -1,5 +1,6 @@
 class ProjectDecorator < ApplicationDecorator
   delegate_all
+  decorates_association :contributions
 
   def percentage_of_completion
     amount_invested * 100 / target_amount
