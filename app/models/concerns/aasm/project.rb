@@ -32,7 +32,7 @@ module Aasm
     end
 
     def project_completed?
-      decorate.percentage_of_completion >= 100
+      percentage_of_completion >= 100
     end
   end
 end
