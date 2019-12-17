@@ -1,7 +1,6 @@
 ActiveAdmin.register Project do
   permit_params :name, :short_description, :long_description, :target_amount, :category_id, :thumbnail, :landscape
   decorate_with ProjectDecorator
-  includes :contributions
 
   index do
     selectable_column
@@ -42,5 +41,11 @@ ActiveAdmin.register Project do
       )
     end
     f.actions
+  end
+
+  controller do
+    def scoped_collection
+      super.includes(contributions: :user)
+    end
   end
 end

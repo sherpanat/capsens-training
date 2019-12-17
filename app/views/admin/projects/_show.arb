@@ -14,9 +14,9 @@ columns do
 end
 
 panel t('.current_contributions') do
-  table_for project.contributions.includes(:user, :counterpart) do
+  table_for project.contributions do
     column t('.contributors_list') do |contribution|
-      link_to contribution.user.decorate.full_name, admin_user_path(contribution.user)
+      link_to contribution.user.full_name, admin_user_path(contribution.user)
     end
     column t('.amount_invested'), :amount
     column t('.chosen_counterpart') do |contribution|
