@@ -17,15 +17,33 @@ ActiveAdmin.register Project do
   action_item :new, only: :show do
     link_to t('.add_a_counterpart'), new_admin_counterpart_path if resource.draft? || resource.upcoming?
   end
-
-  action_item :end_collect, only: :show do
-    link_to t('.end_collect'), end_collect_admin_project_path(resource) if resource.may_end_collect?
-  end
-
+  
   action_item :preview, only: :show do
     link_to t('.preview'), project_path(resource), target: '_blank'
   end
 
+  action_item :prepare, only: :show do
+    link_to t('.prepare'), prepare_admin_project_path(resource) if resource.may_prepare?
+  end
+  
+  member_action :prepare do
+    resource.prepare!
+    redirect_to admin_project_path(resource)
+  end
+  
+  action_item :publish, only: :show do
+    link_to t('.publish'), publish_admin_project_path(resource) if resource.may_publish?
+  end
+    
+  member_action :publish do
+    resource.publish!
+    redirect_to admin_project_path(resource)
+  end
+  
+  action_item :end_collect, only: :show do
+    link_to t('.end_collect'), end_collect_admin_project_path(resource) if resource.may_end_collect?
+  end
+  
   member_action :end_collect do
     resource.end_collect!
     redirect_to admin_project_path(resource)

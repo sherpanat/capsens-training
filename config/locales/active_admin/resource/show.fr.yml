@@ -4,6 +4,8 @@ fr:
       show:
         add_a_counterpart: "Ajouter une contrepartie"
         end_collect: "Achever la collecte"
+        prepare: "Pré-publier"
+        publish: "Publier"
         preview: "Prévisualiser"
         edit: "Modifier"
         delete: "Supprimer"
