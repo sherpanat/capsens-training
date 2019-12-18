@@ -3,7 +3,7 @@ class Project < ApplicationRecord
   include ImageUploader::Attachment.new(:thumbnail)
   include AASM
 
-  scope :visibles, ->() do
+  scope :visibles, -> do
     where(aasm_state: "ongoing").or(self.where(aasm_state: "upcoming")).or(self.where(aasm_state: "success"))
   end
 
