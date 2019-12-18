@@ -1,0 +1,5 @@
+en:
+  admin:
+    counterparts:
+      create:
+        counterpart_creation_over: "Counterpart's creation is over for this project."

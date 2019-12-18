@@ -1,12 +1,11 @@
 class ProjectsController < ApplicationController
-  before_action :visible_projects, only: [:show, :index], unless: :current_admin_user
-  before_action :all_projects, only: [:show, :index], if: :current_admin_user
-
   def index
+    current_admin_user ? all_projects : visible_projects
     @projects = ProjectDecorator.decorate_collection(@projects)
   end
 
   def show
+    current_admin_user ? all_projects : visible_projects
     @project = @projects.find(params[:id])
   end
 
