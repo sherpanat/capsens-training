@@ -1,0 +1,5 @@
+fr:
+  admin:
+    counterparts:
+      create:
+        counterpart_creation_over: "La création d'une contrepartie n'est plus possible pour ce projet."

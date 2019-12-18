@@ -17,8 +17,14 @@ ActiveAdmin.register Counterpart do
 
   controller do
     def create
-      super do |success, failure|
-        success.html { redirect_to_project_show }
+      if can_add_a_counterpart?
+        super do |success, failure|
+          success.html { redirect_to_project_show }
+        end
+      else
+        @resource = Counterpart.new(permitted_params[:counterpart])
+        @resource.errors.add(:project, t('.counterpart_creation_over'))
+        render :new
       end
     end
 
@@ -38,6 +44,15 @@ ActiveAdmin.register Counterpart do
     
     def redirect_to_project_show
       redirect_to admin_project_path(resource.project)
+    end
+
+    def can_add_a_counterpart?
+      project = Project.find(project_id)
+      project.draft? || project.upcoming?
+    end
+
+    def project_id
+      params.require(:counterpart).permit(:project_id)[:project_id]
     end
   end
 end
