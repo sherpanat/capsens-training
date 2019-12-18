@@ -1,6 +1,13 @@
 ActiveAdmin.register Project do
   permit_params :name, :short_description, :long_description, :target_amount, :category_id, :thumbnail, :landscape
 
+  scope :all, default: true
+  scope :draft
+  scope :upcoming
+  scope :ongoing
+  scope :success
+  scope :failure
+
   index do
     selectable_column
     column :name
