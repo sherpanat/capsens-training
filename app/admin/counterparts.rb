@@ -16,28 +16,43 @@ ActiveAdmin.register Counterpart do
   end
 
   controller do
-    # before_action :raise_404, unless: :can_add_counterpart?, only: :new
-
     def create
-      super { redirect_to_project_show and return if resource.valid? }
+      if can_add_a_counterpart?
+        super do |success, failure|
+          success.html { redirect_to_project_show }
+        end
+      else
+        @resource = Counterpart.new(permitted_params[:counterpart])
+        @resource.errors.add(:project, t('.counterpart_creation_over'))
+        render :new
+      end
     end
 
     def update
-      super { redirect_to_project_show and return if resource.valid? }
+      super do |success, failure|
+        success.html { redirect_to_project_show }
+      end
     end
 
     def destroy
-      super { redirect_to_project_show and return if resource.valid? }
+      super do |success, failure|
+        success.html { redirect_to_project_show }
+      end
     end
 
     private
-
+    
     def redirect_to_project_show
       redirect_to admin_project_path(resource.project)
     end
-    
-    # def can_add_counterpart?
-    #   resource.draft? || resource.upcoming?
-    # end
+
+    def can_add_a_counterpart?
+      project = Project.find(project_id)
+      project.draft? || project.upcoming?
+    end
+
+    def project_id
+      params.require(:counterpart).permit(:project_id)[:project_id]
+    end
   end
 end
