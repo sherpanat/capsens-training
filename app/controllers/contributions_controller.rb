@@ -7,12 +7,11 @@ class ContributionsController < ApplicationController
   end
   
   def create
-    contribution = Contribution.new(contribution_params.merge(project_id: params[:project_id], user: current_user))
-    if contribution.save
+    result = Contributions::CreateTransaction.call(contribution_params.merge(project: set_project, user: current_user))
+    if result.success
       redirect_to users_dashboards_path
     else
-      @contribution = contribution
-      set_project
+      @contribution = result.failure[:contribution]
       set_counterparts
       render :new
     end
