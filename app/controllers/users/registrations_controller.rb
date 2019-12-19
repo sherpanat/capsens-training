@@ -9,7 +9,7 @@ module Users
       if result.success
         @resource = result.success
         sign_up(resource_name, @resource)
-        respond_with @resource, location: after_sign_up_path_for(@resource)        
+        respond_with @resource, location: after_sign_up_path_for(@resource)
       else
         @resource = result.failure[:user]
         render :new
