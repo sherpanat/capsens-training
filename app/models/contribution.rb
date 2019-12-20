@@ -10,7 +10,7 @@ class Contribution < ApplicationRecord
 
   def sufficient_amount_for_counterpart
     if amount < counterpart.threshold
-      errors.add(:counterpart, "Montant trop faible")
+      errors.add(:counterpart, :amount_lower_than_threshold)
     end
   end
 end
