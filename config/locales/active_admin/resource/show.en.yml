@@ -2,4 +2,12 @@ en:
   active_admin:
     resource:
       show:
-        add_a_counterpart: "Add a counterpart"
+        percentage_of_completion: "Percentage of completion: %{percentage}%"
+        total_invested: "Total invested: %{amount}"
+        higher_contribution: "Higher contribution : %{amount}"
+        lower_contribution: "Lower contribution : %{amount}"
+        current_contributons: "Current contributions"
+        contributors_list: "Contributors list"
+        amount_invested: "Amount invested"
+        chosen_counterpart: "Chosen counterpart"
+        investment_date: "Investment date"
