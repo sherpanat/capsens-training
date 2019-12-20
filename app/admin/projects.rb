@@ -1,5 +1,6 @@
 ActiveAdmin.register Project do
   permit_params :name, :short_description, :long_description, :target_amount, :category_id, :thumbnail, :landscape
+  decorate_with ProjectDecorator
 
   index do
     selectable_column
@@ -14,6 +15,34 @@ ActiveAdmin.register Project do
   filter :created_at
 
   show do |project|
+    columns do
+      column do
+        span t('.percentage_of_completion', percentage: project.percentage_of_completion)
+      end
+      column do
+        span t('.total_invested', amount: project.amount_invested)
+      end
+      column do
+        span t('.higher_contribution', amount: project.higher_contribution)
+      end
+      column do
+        span t('.lower_contribution', amount: project.lower_contribution)
+      end
+    end
+
+    panel t('.current_contributions') do
+      table_for project.contributions do
+        column t('.contributors_list') do |contribution|
+          link_to contribution.user.full_name, admin_user_path(contribution.user)
+        end
+        column t('.amount_invested'), :amount
+        column t('.chosen_counterpart') do |contribution|
+          contribution.counterpart&.description
+        end
+        column t('.investment_date'), :created_at
+      end
+    end
+
     attributes_table do
       row :name
       row :short_description
@@ -51,5 +80,11 @@ ActiveAdmin.register Project do
       )
     end
     f.actions
+  end
+
+  controller do
+    def scoped_collection
+      super.includes(contributions: :user)
+    end
   end
 end
