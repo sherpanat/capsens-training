@@ -1,7 +1,6 @@
 module Contributions
   class CreateTransaction < ::BaseTransaction
     step :create_contribution
-    step :find_or_create_mangopay_user
     step :find_or_create_wallet
 
     def create_contribution(attributes)
@@ -11,10 +10,6 @@ module Contributions
       else
         Failure(error: @contribution.errors.full_messages.join(' | '), contribution: @contribution)
       end
-    end
-
-    def find_or_create_mangopay_user
-      
     end
 
     def find_or_create_mangopay_wallet
