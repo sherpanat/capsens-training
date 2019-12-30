@@ -1,0 +1,8 @@
+en:
+  activerecord:
+    errors:
+      models:
+        contribution:
+          attributes:
+            counterpart:
+              amount_lower_than_threshold: "Amount too lower for that counterpart"

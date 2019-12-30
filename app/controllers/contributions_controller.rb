@@ -24,7 +24,7 @@ class ContributionsController < ApplicationController
   end
 
   def set_counterparts
-    @counterparts = @project.counterparts
+    @counterparts = CounterpartDecorator.decorate_collection(@project.counterparts)
   end
 
   def contribution_params
