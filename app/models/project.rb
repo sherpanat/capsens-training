@@ -4,7 +4,7 @@ class Project < ApplicationRecord
   include AASM
 
   scope :visibles, -> do
-    where(aasm_state: "ongoing").or(self.where(aasm_state: "upcoming")).or(self.where(aasm_state: "success"))
+    where(aasm_state: ["ongoing", "upcoming", "success"])
   end
 
   belongs_to :category, optional: true
