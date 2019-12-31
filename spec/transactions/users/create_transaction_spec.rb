@@ -11,13 +11,16 @@ RSpec.describe Users::CreateTransaction do
         Nationality: 'FR',
         CountryOfResidence: 'FR',
         Email: user_attributes[:email]
-      )
+      ).and_return('Id' => '1')
     end
     it { expect { subject }.to change { User.count }.by(1) }
     it { expect { subject }.to change { ActionMailer::Base.deliveries.count }.by(1) }
     it "sends a welcoming email to user" do
       expect_any_instance_of(UserMailer).to receive(:welcome_email)
       subject
+    end
+    it "sets mangopay_id" do
+      expect(subject.success.mangopay_id).not_to be nil
     end
   end
 
