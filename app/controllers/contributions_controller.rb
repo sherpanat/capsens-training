@@ -9,7 +9,7 @@ class ContributionsController < ApplicationController
   def create
     result = Contributions::CreateTransaction.call(contribution_params.merge(project: set_project, user: current_user))
     if result.success
-      redirect_to users_dashboards_path
+      redirect_to new_payment_path(result.success)
     else
       @contribution = result.failure[:contribution]
       set_counterparts
