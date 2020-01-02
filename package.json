@@ -9,6 +9,7 @@
     "bootstrap": "^4.3.1",
     "bootswatch": "^4.3.1",
     "jquery": "^3.4.1",
+    "mangopay-cardregistration-js-kit": "^1.2.2",
     "popper.js": "^1.16.0",
     "turbolinks": "^5.2.0"
   },
