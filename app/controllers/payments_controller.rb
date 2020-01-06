@@ -6,6 +6,6 @@ class PaymentsController < ApplicationController
   private
 
   def card_params
-    params.require(:card_attributes).permit(:AccessKey, :CardRegistrationURL, :PreregistrationData)
+    params.require(:card_attributes).permit(:Id, :AccessKey, :CardRegistrationURL, :PreregistrationData)
   end
 end
