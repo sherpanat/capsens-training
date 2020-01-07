@@ -3,6 +3,10 @@ class Project < ApplicationRecord
   include ImageUploader::Attachment.new(:thumbnail)
   include AASM
 
+  scope :visibles, -> do
+    where(aasm_state: ["ongoing", "upcoming", "success"])
+  end
+
   belongs_to :category, optional: true
   has_many :contributions
   has_many :contributors, through: :contributions, source: :user
