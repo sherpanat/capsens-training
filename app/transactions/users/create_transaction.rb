@@ -1,7 +1,8 @@
 module Users
   class CreateTransaction < ::BaseTransaction
     step :create_user
-    tee :create_mangopay_user
+    step :create_mangopay_user
+    step :create_mangopay_wallet
     tee :send_welcome_email
 
     def create_user(attributes)
@@ -23,6 +24,16 @@ module Users
         Email: @user.email
       )
       @user.update(mangopay_id: mangopay_user['Id'])
+      Success(user: @user, mangopay_user: mangopay_user)
+    end
+
+    def create_mangopay_wallet
+      mangopay_wallet = MangoPay::Wallet.create(
+        Owners: [@user.mangopay_id],
+        Description: "#{@user.first_name} #{@user.last_name}'s wallet",
+        Currency: "EUR"
+      )
+      Success(user: @user, mangopay_wallet: mangopay_wallet)
     end
 
     def send_welcome_email(attributes)

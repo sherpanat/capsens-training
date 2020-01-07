@@ -8,10 +8,17 @@ RSpec.describe Users::CreateTransaction do
         FirstName: user_attributes[:first_name],
         LastName: user_attributes[:last_name],
         Birthday: user_attributes[:birthdate].to_time.to_i,
-        Nationality: 'FR',
-        CountryOfResidence: 'FR',
+        Nationality: "FR",
+        CountryOfResidence: "FR",
         Email: user_attributes[:email]
-      ).and_return('Id' => '1')
+      ).and_return("Id" => "1")
+    end
+    before "Create a MangoPay::Wallet" do
+      expect(MangoPay::Wallet).to receive(:create).with(
+        Owners: [user_attributes[:mangopay_id]],
+        Description: "#{user_attributes[:first_name]} #{user_attributes[:last_name]}'s wallet",
+        Currency: "EUR"
+      ).and_return("Balance"=> { "Currency" => "EUR", "Amount" => 0 }, "Owners" => [user_attributes[:mangopay_id]], "Id" => "2")
     end
     it { expect { subject }.to change { User.count }.by(1) }
     it { expect { subject }.to change { ActionMailer::Base.deliveries.count }.by(1) }
@@ -20,7 +27,7 @@ RSpec.describe Users::CreateTransaction do
       subject
     end
     it "sets mangopay_id" do
-      expect(subject.success.mangopay_id).not_to be nil
+      expect(subject.success[:user].mangopay_id).not_to be nil
     end
   end
 
@@ -28,6 +35,9 @@ RSpec.describe Users::CreateTransaction do
     let(:user_attributes) { attributes_for(:user, first_name: '') }
     before "Does not create a MangoPay::NaturalUser" do
       expect(MangoPay::NaturalUser).not_to receive(:create)
+    end
+    before "Does not create a MangoPay::Wallet" do
+      expect(MangoPay::Wallet).not_to receive(:create)
     end
     it { expect { subject }.not_to change { User.count } }
     it { expect { subject }.not_to change { ActionMailer::Base.deliveries.count } }
