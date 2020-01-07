@@ -1,5 +1,9 @@
 <ul>
   <% @projects.each do |project| %>
-    <li><%= project.name %></li>
+    <li>
+      <%= link_to project.name, project_path(project) %> :
+      <%= project.aasm.current_state %>
+      (<%= project.percentage_of_completion %>%)
+    </li>
   <% end %>
 </ul>

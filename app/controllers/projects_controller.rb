@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = current_admin_user ? all_projects : visible_projects
+    projects = current_admin_user ? all_projects : visible_projects
+    @projects = ProjectDecorator.decorate_collection(projects)
   end
 
   def show
