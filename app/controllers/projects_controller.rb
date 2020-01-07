@@ -11,10 +11,10 @@ class ProjectsController < ApplicationController
   private
 
   def visible_projects
-    @projects = Project.visibles
+    Project.visibles
   end
 
   def all_projects
-    @projects = Project.where.not(aasm_state: "failure")
+    Project.where.not(aasm_state: "failure")
   end
 end
