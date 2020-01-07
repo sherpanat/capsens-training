@@ -25,7 +25,7 @@ ActiveAdmin.register User do
   end
 
   action_item :login_as, only: :show do
-    link_to 'Log as User', login_as_admin_user_path(user), :target => '_blank'
+    link_to 'Log as User', login_as_admin_user_path(user), target: '_blank'
   end
 
   member_action :login_as do

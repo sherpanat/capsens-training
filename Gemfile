@@ -30,6 +30,7 @@ gem 'rails-i18n', '~> 6.0.0'
 gem 'devise-i18n'
 gem 'shrine'
 gem 'seedbank'
+gem 'aasm'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

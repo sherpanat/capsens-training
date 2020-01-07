@@ -1,0 +1,12 @@
+en:
+  active_admin:
+    resource:
+      show:
+        add_a_counterpart: "Add a counterpart"
+        end_collect: "End collect"
+        prepare: "Pre-publish"
+        publish: "Publish"
+        preview: "Preview"
+        edit: "Edit"
+        delete: "Delete"
+
