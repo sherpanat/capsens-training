@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   namespace :users do
     resource :dashboards, only: :show
   end
-  resources :projects, only: :show
+  resources :projects, only: [:show, :index]
 end

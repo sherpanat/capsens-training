@@ -1,14 +1,20 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_admin_user!, only: :show, if: :draft_project?
+  def index
+    @projects = current_admin_user ? all_projects : visible_projects
+  end
 
   def show
-    @project ||= Project.find(params[:id])
+    projects = current_admin_user ? all_projects : visible_projects
+    @project = projects.find(params[:id])
   end
 
   private
 
-  def draft_project?
-    @project = Project.find(params[:id])
-    @project.draft?
+  def visible_projects
+    Project.visibles
+  end
+
+  def all_projects
+    Project.where.not(aasm_state: "failure")
   end
 end
