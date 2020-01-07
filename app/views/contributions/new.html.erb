@@ -1,5 +1,5 @@
 <div class="d-table margin-auto">
-  <h2>Choisissez le montant de votre contribution ainsi que votre contrepartie pour <%= @project.name %></h2>
+  <h2><%= t('.choose_your_contribution_and_counterpart') %> <%= @project.name %></h2>
 
   <%= form_for @contribution, url: project_contributions_path do |f| %>
     <%= render "devise/shared/error_messages", resource: @contribution %>
@@ -16,7 +16,7 @@
     </div>
 
     <div class="actions">
-      <%= f.submit "Contribuer", class: "btn btn-primary" %>
+      <%= f.submit t('.contribute'), class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>
