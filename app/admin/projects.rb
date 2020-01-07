@@ -80,7 +80,7 @@ ActiveAdmin.register Project do
     end
     f.actions
   end
-
+  
   controller do
     def scoped_collection
       super.includes(contributions: :user)
