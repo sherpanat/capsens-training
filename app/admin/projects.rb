@@ -1,5 +1,5 @@
 ActiveAdmin.register Project do
-  permit_params :name, :short_description, :long_description, :target_amount, :category_id, :thumbnail, :landscape
+  permit_params :name, :short_description, :long_description, :email, :owner_first_name, :owner_last_name, :owner_birthdate, :target_amount, :category_id, :thumbnail, :landscape
   decorate_with ProjectDecorator
 
   scope :all, default: true
@@ -65,6 +65,10 @@ ActiveAdmin.register Project do
       f.input :name
       f.input :short_description
       f.input :long_description
+      f.input :email
+      f.input :owner_first_name
+      f.input :owner_last_name
+      f.input :owner_birthdate
       f.input :target_amount
       f.input :category, as: :select
       f.input(
