@@ -1,0 +1,2 @@
+fr:
+  description_with_threshold: "%{description} : %{threshold}€"

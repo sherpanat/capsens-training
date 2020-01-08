@@ -1,5 +1,7 @@
 fr:
   contributions:
     new:
+      choose_your_contribution_and_counterpart: "Choisissez le montant de votre contribution ainsi que votre contrepartie pour"
       chosen_amount: "Votre montant choisi"
       chosen_counterpart: "Votre choix de contrepartie"
+      contribute: "Contribuer"

@@ -1,12 +1,12 @@
 class ProjectsController < ApplicationController
   def index
-    current_admin_user ? all_projects : visible_projects
-    @projects = ProjectDecorator.decorate_collection(@projects)
+    projects = current_admin_user ? all_projects : visible_projects
+    @projects = ProjectDecorator.decorate_collection(projects)
   end
 
   def show
-    current_admin_user ? all_projects : visible_projects
-    @project = @projects.find(params[:id])
+    projects = current_admin_user ? all_projects : visible_projects
+    @project = projects.find(params[:id])
   end
 
   private

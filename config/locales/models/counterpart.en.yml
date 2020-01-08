@@ -1,4 +1,0 @@
-en:
-  models:
-    counterpart:
-      description_with_threshold: "%{description}: %{threshold}€"
