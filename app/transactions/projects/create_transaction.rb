@@ -24,7 +24,7 @@ module Projects
         LegalRepresentativeCountryOfResidence: 'FR',
         Email: @project.email
       )
-      @project.update(mangopay_id: mangopay_legal_user['Id'])
+      @project.update!(mangopay_id: mangopay_legal_user['Id'])
       Success(project: @project, mangopay_legal_user: mangopay_legal_user)
     end
 

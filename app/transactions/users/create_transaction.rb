@@ -23,7 +23,7 @@ module Users
         CountryOfResidence: 'FR',
         Email: @user.email
       )
-      @user.update(mangopay_id: mangopay_user['Id'])
+      @user.update!(mangopay_id: mangopay_user['Id'])
       Success(user: @user, mangopay_user: mangopay_user)
     end
 
