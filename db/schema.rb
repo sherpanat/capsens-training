@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_07_154619) do
+ActiveRecord::Schema.define(version: 2020_01_08_141452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 2020_01_07_154619) do
     t.date "owner_birthdate"
     t.string "email"
     t.string "mangopay_id"
+    t.string "wallet_id"
     t.index ["category_id"], name: "index_projects_on_category_id"
   end
 
@@ -110,6 +111,7 @@ ActiveRecord::Schema.define(version: 2020_01_07_154619) do
     t.string "last_name", null: false
     t.date "birthdate", null: false
     t.string "mangopay_id"
+    t.string "wallet_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -15,7 +15,7 @@ RSpec.describe Users::CreateTransaction do
     end
     before "Create a MangoPay::Wallet" do
       expect(MangoPay::Wallet).to receive(:create).with(
-        Owners: [user_attributes[:mangopay_id]],
+        Owners: ["1"],
         Description: "#{user_attributes[:first_name]} #{user_attributes[:last_name]}'s wallet",
         Currency: "EUR"
       ).and_return("Balance"=> { "Currency" => "EUR", "Amount" => 0 }, "Owners" => [user_attributes[:mangopay_id]], "Id" => "2")
@@ -27,7 +27,10 @@ RSpec.describe Users::CreateTransaction do
       subject
     end
     it "sets mangopay_id" do
-      expect(subject.success[:user].mangopay_id).not_to be nil
+      expect(subject.success[:user].mangopay_id).to eq "1"
+    end
+    it "sets wallet_id" do
+      expect(subject.success[:user].wallet_id).to eq "2"
     end
   end
 

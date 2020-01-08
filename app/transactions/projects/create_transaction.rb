@@ -34,6 +34,7 @@ module Projects
         Description: "#{@project.name}'s wallet",
         Currency: "EUR"
       )
+      @project.update!(wallet_id: mangopay_wallet['Id'])
       Success(project: @project, mangopay_wallet: mangopay_wallet)
     end
   end

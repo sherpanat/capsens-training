@@ -18,14 +18,17 @@ RSpec.describe Projects::CreateTransaction do
     end
     before "Create a MangoPay::Wallet" do
       expect(MangoPay::Wallet).to receive(:create).with(
-        Owners: [project_attributes[:mangopay_id]],
+        Owners: ["1"],
         Description: "#{project_attributes[:name]}'s wallet",
         Currency: "EUR"
       ).and_return("Balance"=> { "Currency" => "EUR", "Amount" => 0 }, "Owners" => [project_attributes[:mangopay_id]], "Id" => "2")
     end
     it { expect { subject }.to change { Project.count }.by(1) }
     it "sets mangopay_id" do
-      expect(subject.success[:project].mangopay_id).not_to be nil
+      expect(subject.success[:project].mangopay_id).to eq "1"
+    end
+    it "sets wallet_id" do
+      expect(subject.success[:project].wallet_id).to eq "2"
     end
   end
 

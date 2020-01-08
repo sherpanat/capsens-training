@@ -5,6 +5,7 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     birthdate { Faker::Date.in_date_period }
-    mangopay_id { '1' }
+    mangopay_id { '123' }
+    wallet_id { '456' }
   end
 end

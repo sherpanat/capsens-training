@@ -33,6 +33,7 @@ module Users
         Description: "#{@user.first_name} #{@user.last_name}'s wallet",
         Currency: "EUR"
       )
+      @user.update!(wallet_id: mangopay_wallet['Id'])
       Success(user: @user, mangopay_wallet: mangopay_wallet)
     end
 
