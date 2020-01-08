@@ -1,4 +1,9 @@
 RSpec.describe Users::RegistrationsController do
+  before do
+    allow(MangoPay::NaturalUser).to receive(:create).and_return("Id" => "1")
+    allow(MangoPay::Wallet).to receive(:create).and_return("Id" => "2")
+  end
+
   before(:each) do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end

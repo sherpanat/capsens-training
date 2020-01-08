@@ -8,7 +8,7 @@ module Users
     def create_user(attributes)
       @user = User.new(attributes)
       if @user.save
-        Success(@user)
+        Success(user: @user)
       else
         Failure(error: @user.errors.full_messages.join(' | '), user: @user)
       end
