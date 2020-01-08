@@ -86,6 +86,17 @@ ActiveAdmin.register Project do
   end
   
   controller do
+    def create
+      result = Projects::CreateTransaction.call(permitted_params[:project])
+      if result.success
+        @resource = result.success[:project]
+        redirect_to admin_project_path(@resource)
+      else
+        @resource = result.failure[:project]
+        render :new
+      end
+    end
+
     def scoped_collection
       super.includes(contributions: :user)
     end
