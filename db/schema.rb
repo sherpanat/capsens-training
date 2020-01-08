@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_31_112207) do
+ActiveRecord::Schema.define(version: 2020_01_07_154619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,11 @@ ActiveRecord::Schema.define(version: 2019_12_31_112207) do
     t.text "thumbnail_data"
     t.text "landscape_data"
     t.string "aasm_state"
+    t.string "owner_first_name"
+    t.string "owner_last_name"
+    t.date "owner_birthdate"
+    t.string "email"
+    t.string "mangopay_id"
     t.index ["category_id"], name: "index_projects_on_category_id"
   end
 

@@ -12,7 +12,7 @@ class Project < ApplicationRecord
   has_many :contributors, through: :contributions, source: :user
   has_many :counterparts, dependent: :destroy
 
-  validates :name, :target_amount, presence: true
+  validates :name, :target_amount, :email, :owner_first_name, :owner_last_name, :owner_birthdate, presence: true
   validates :target_amount, numericality: { greater_than: 0, only_integer: true }
 
   def percentage_of_completion
