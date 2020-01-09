@@ -52,3 +52,6 @@ RSpec.describe Contributions::CreateTransaction do
     end
   end
 end
+
+# Retour de CardWebPayIn
+# {"Id"=>"73348304", "Tag"=>nil, "CreationDate"=>1578565899, "AuthorId"=>"73348151", "CreditedUserId"=>"73348151", "DebitedFunds"=>{"Currency"=>"EUR", "Amount"=>13}, "CreditedFunds"=>{"Currency"=>"EUR", "Amount"=>12}, "Fees"=>{"Currency"=>"EUR", "Amount"=>1}, "Status"=>"CREATED", "ResultCode"=>nil, "ResultMessage"=>nil, "ExecutionDate"=>nil, "Type"=>"PAYIN", "Nature"=>"REGULAR", "CreditedWalletId"=>"73347199", "DebitedWalletId"=>nil, "PaymentType"=>"CARD", "ExecutionType"=>"WEB", "RedirectURL"=>"https://homologation-secure-p.payline.com/webpayment/step2.do?reqCode=prepareStep2&token=1dfA8ePE1GI5cR9G43201578565899693", "ReturnURL"=>"http://localhost:3000/projects?transactionId=73348304", "TemplateURL"=>"https://api.sandbox.mangopay.com/Content/PaylineTemplate?rp=7a56e8af8c5a4ce8a5c6e025ec143f8c&transactionId=73348304", "CardType"=>"CB_VISA_MASTERCARD", "Culture"=>"FR", "SecureMode"=>"DEFAULT", "StatementDescriptor"=>nil}
