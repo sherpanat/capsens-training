@@ -2,13 +2,12 @@ class ContributionsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @project = set_project
+    @project = get_project
     @contribution = Contribution.new(user: current_user, project: @project)
-    @counterparts = set_counterparts
   end
   
   def create
-    @project = set_project
+    @project = get_project
     result = Contributions::CreateTransaction.call(contribution_params.merge(project: @project, user: current_user))
     if result.success
       redirect_to users_dashboards_path
@@ -21,12 +20,8 @@ class ContributionsController < ApplicationController
 
   private
 
-  def set_project
-    Project.find(params[:project_id])
-  end
-
-  def set_counterparts
-    CounterpartDecorator.decorate_collection(@project.counterparts)
+  def get_project
+    Project.find(params[:project_id]).decorate
   end
 
   def contribution_params
