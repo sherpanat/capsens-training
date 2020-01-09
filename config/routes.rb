@@ -10,5 +10,4 @@ Rails.application.routes.draw do
   resources :projects, only: [:show, :index] do
     resources :contributions, only: [:new, :create]
   end
-  resources :payments, only: :new
 end
