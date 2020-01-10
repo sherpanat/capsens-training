@@ -31,7 +31,7 @@ module Projects
     def create_mangopay_project_wallet
       mangopay_wallet = MangoPay::Wallet.create(
         Owners: [@project.mangopay_id],
-        Description: "#{@project.name}'s wallet",
+        Description: "main wallet of the project",
         Currency: "EUR"
       )
       @project.update!(wallet_id: mangopay_wallet['Id'])
