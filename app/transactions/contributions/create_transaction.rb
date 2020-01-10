@@ -28,7 +28,7 @@ module Contributions
 
     def pay_in_user_wallet
       @user = @contribution.user
-      card_attributes = MangoPay::PayIn::Card::Web.create(
+      payin_attributes = MangoPay::PayIn::Card::Web.create(
         AuthorId: @user.mangopay_id,
         CreditedUserId: @user.mangopay_id,
         CreditedWalletId: @contribution.project.wallet_id,
@@ -44,7 +44,8 @@ module Contributions
         ReturnURL: "#{url_for({action: 'index', controller: 'projects'}.merge(Rails.configuration.x.absolute_url_options))}",
         Culture: "FR"
       )
-      Success(contribution: @contribution, card_attributes: card_attributes)
+      @contribution.update!(payin_id: payin_attributes['Id'])
+      Success(contribution: @contribution, payin_attributes: payin_attributes)
     end
   end
 end

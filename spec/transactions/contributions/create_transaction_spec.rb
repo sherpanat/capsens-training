@@ -2,21 +2,27 @@ RSpec.describe Contributions::CreateTransaction do
   subject { described_class.call(contribution_attributes) }
 
   context "Create a contribution with valid attributes" do
-    before "creates a MangoPay::CardRegistration" do
-      expect(MangoPay::CardRegistration).to receive(:create).with(
-        UserID: user.mangopay_id,
-        Currency: 'EUR'
-      ).and_return(
-        "Id" => "123",
-        "UserId" => user.mangopay_id,
-        "AccessKey" => "1X0m87dmM2LiwFgxPLBJ",
-        "PreregistrationData" => "S8HjKhXaPXeNlzbaHMqIv5ahx5EnS5jTkJowsAs6NUgDqe8Z5Lh ",
-        "CardRegistrationURL" => "https://homologation-webpayment.payline.com/getToken",
-        "Currency" => "EUR"
-      )
+    before "creates a MangoPay::Payin::Card::Web" do
+      expect(MangoPay::PayIn::Card::Web).to receive(:create).with(
+        AuthorId: user.mangopay_id,
+        CreditedUserId: user.mangopay_id,
+        CreditedWalletId: contribution.project.wallet_id,
+        DebitedFunds: {
+          Currency: "EUR",
+          Amount: contribution.amount * 100
+        },
+        Fees: {
+          Currency: "EUR",
+          Amount: 100
+        },
+        CardType: "CB_VISA_MASTERCARD",
+        ReturnURL: "http://localhost:3000/projects",
+        Culture: "FR"
+      ).and_return("Id" => "1")
     end
     let(:user) { create(:user) }
     let(:project) { create(:project) }
+    let(:contribution) { create(:contribution, contribution_attributes) }
 
     describe "with a relevant conterpart" do
       let(:counterpart) { create(:counterpart, project: project, threshold: 20) }
@@ -25,17 +31,23 @@ RSpec.describe Contributions::CreateTransaction do
       it "creates contribution with counterpart" do
         expect(subject.success[:contribution].counterpart).to eq(counterpart)
       end
+      it "sets payin_id" do
+        expect(subject.success[:contribution].payin_id).to eq "1"
+      end
     end
 
     describe "without any counterpart" do
       let(:contribution_attributes) { attributes_for(:contribution, amount: 20).merge(project_id: project.id, user_id: user.id) }
       it { expect { subject }.to change { Contribution.count }.by(1) }
+      it "sets payin_id" do
+        expect(subject.success[:contribution].payin_id).to eq "1"
+      end
     end
   end
 
   context "Create a contribution with invalid attributes" do
-    before "does not create a MangoPay::CardRegistration" do
-      expect(MangoPay::CardRegistration).not_to receive(:create)
+    before "does not create a MangoPay::Payin::Card::Web" do
+      expect(MangoPay::PayIn::Card::Web).not_to receive(:create)
     end
 
     describe "without any counterpart" do
