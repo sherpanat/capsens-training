@@ -28,7 +28,7 @@ module Contributions
       payin_attributes = MangoPay::PayIn::Card::Web.create(
         AuthorId: contribution.user.mangopay_id,
         CreditedUserId: contribution.user.mangopay_id,
-        CreditedWalletId: contribution.project.wallet_id,
+        CreditedWalletId: contribution.user.wallet_id,
         DebitedFunds: {
           Currency: "EUR",
           Amount: contribution.amount * 100
@@ -42,7 +42,7 @@ module Contributions
         Culture: "FR"
       )
       contribution.update!(payin_id: payin_attributes['Id'])
-      Success(contribution)
+      Success(contribution: contribution, redirect_url: payin_attributes["RedirectURL"])
     end
   end
 end
