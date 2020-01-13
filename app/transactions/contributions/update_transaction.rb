@@ -1,12 +1,13 @@
 module Contributions
   class UpdateTransaction < ::BaseTransaction
-    step :create_user_contribution_wallet
+    step :find_or_create_user_contribution_wallet
     step :transfer_from_user_to_contribution_wallet
 
-    def create_user_contribution_wallet(attributes)
+    def find_or_create_user_contribution_wallet(attributes)
       contribution = Contribution.find(attributes['id'])
       project = Project.find(attributes['project_id'])
       user = User.find(attributes['user_id'])
+      return Success(contribution) if contribution.wallet_id
       contribution_wallet = MangoPay::Wallet.create(
         Owners: [user.mangopay_id],
         Description: "Contribution's wallet for #{user.first_name} #{user.last_name} contribution on #{project.name} project.",
