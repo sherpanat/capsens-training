@@ -4,8 +4,6 @@ module Contributions
     step :validate_counterpart
     step :create_contribution
     step :pay_in_user_wallet
-    # step :create_contribution_wallet
-    # step :transfer_from_user_to_contribution_wallet
 
     def validate_counterpart(attributes)
       @contribution = Contribution.new(attributes)
@@ -38,7 +36,7 @@ module Contributions
         },
         Fees: {
           Currency: "EUR",
-          Amount: 100
+          Amount: 0
         },
         CardType: "CB_VISA_MASTERCARD",
         ReturnURL: "#{url_for({action: 'index', controller: 'projects'}.merge(Rails.configuration.x.absolute_url_options))}",

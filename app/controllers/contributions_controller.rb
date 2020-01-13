@@ -11,7 +11,7 @@ class ContributionsController < ApplicationController
     @project = set_project
     result = Contributions::CreateTransaction.call(contribution_params.merge(project: @project, user: current_user))
     if result.success
-      redirect_to result.success[:card_attributes]["RedirectURL"]
+      redirect_to result.success[:payin_attributes]["RedirectURL"]
     else
       @contribution = result.failure[:contribution]
       @counterparts = set_counterparts

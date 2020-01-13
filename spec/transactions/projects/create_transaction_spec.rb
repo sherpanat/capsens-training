@@ -19,7 +19,7 @@ RSpec.describe Projects::CreateTransaction do
     before "Create a MangoPay::Wallet" do
       expect(MangoPay::Wallet).to receive(:create).with(
         Owners: ["1"],
-        Description: "main wallet of the project",
+        Description: "Main wallet of the project",
         Currency: "EUR"
       ).and_return("Balance"=> { "Currency" => "EUR", "Amount" => 0 }, "Owners" => [project_attributes[:mangopay_id]], "Id" => "2")
     end
