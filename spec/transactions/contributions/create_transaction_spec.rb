@@ -29,7 +29,7 @@ RSpec.describe Contributions::CreateTransaction do
       let(:contribution_attributes) { attributes_for(:contribution, amount: 20).merge(user_id: user.id, project_id: project.id, counterpart_id: counterpart.id) }
       it { expect { subject }.to change { Contribution.count }.by(1) }
       it "creates contribution with counterpart" do
-        expect(subject.success[:contribution].counterpart).to eq(counterpart)
+        expect(subject.success.counterpart).to eq(counterpart)
       end
       it "sets payin_id" do
         expect(subject.success[:contribution].payin_id).to eq "1"

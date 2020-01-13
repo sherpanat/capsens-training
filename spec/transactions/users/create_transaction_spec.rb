@@ -27,10 +27,10 @@ RSpec.describe Users::CreateTransaction do
       subject
     end
     it "sets mangopay_id" do
-      expect(subject.success[:user].mangopay_id).to eq "1"
+      expect(subject.success.mangopay_id).to eq "1"
     end
     it "sets wallet_id" do
-      expect(subject.success[:user].wallet_id).to eq "2"
+      expect(subject.success.wallet_id).to eq "2"
     end
   end
 

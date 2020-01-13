@@ -6,21 +6,21 @@ module Contributions
     step :pay_in_user_wallet
 
     def validate_counterpart(attributes)
-      @contribution = Contribution.new(attributes)
-      return Success(contribution: @contribution) unless @contribution.counterpart
-      if @contribution.amount < @contribution.counterpart.threshold
-        @contribution.errors.add(:counterpart, :amount_lower_than_threshold)
-        Failure(error: @contribution.errors.full_messages.join(' | '), contribution: @contribution)
+      contribution = Contribution.new(attributes)
+      return Success(contribution) unless contribution.counterpart
+      if contribution.amount < contribution.counterpart.threshold
+        contribution.errors.add(:counterpart, :amount_lower_than_threshold)
+        Failure(error: contribution.errors.full_messages.join(' | '), contribution: contribution)
       else
-        Success(contribution: @contribution)
+        Success(contribution)
       end
     end
 
-    def create_contribution
-      if @contribution.save
-        Success(contribution: @contribution)
+    def create_contribution(contribution)
+      if contribution.save
+        Success(contribution)
       else
-        Failure(error: @contribution.errors.full_messages.join(' | '), contribution: @contribution)
+        Failure(error: contribution.errors.full_messages.join(' | '), contribution: contribution)
       end
     end
 

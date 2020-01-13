@@ -1,2 +1,4 @@
 fr:
-  description_with_threshold: "%{description} : %{threshold}€"
+  decorators:
+    counterpart:
+      description_with_threshold: "%{description} : %{threshold}€"

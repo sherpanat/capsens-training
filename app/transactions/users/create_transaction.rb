@@ -6,39 +6,39 @@ module Users
     tee :send_welcome_email
 
     def create_user(attributes)
-      @user = User.new(attributes)
-      if @user.save
-        Success(user: @user)
+      user = User.new(attributes)
+      if user.save
+        Success(user)
       else
-        Failure(error: @user.errors.full_messages.join(' | '), user: @user)
+        Failure(error: user.errors.full_messages.join(' | '), user: user)
       end
     end
 
-    def create_mangopay_user
+    def create_mangopay_user(user)
       mangopay_user = MangoPay::NaturalUser.create(
-        FirstName: @user.first_name,
-        LastName: @user.last_name,
-        Birthday: @user.birthdate.to_time.to_i,
+        FirstName: user.first_name,
+        LastName: user.last_name,
+        Birthday: user.birthdate.to_time.to_i,
         Nationality: 'FR',
         CountryOfResidence: 'FR',
-        Email: @user.email
+        Email: user.email
       )
-      @user.update!(mangopay_id: mangopay_user['Id'])
-      Success(user: @user, mangopay_user: mangopay_user)
+      user.update!(mangopay_id: mangopay_user['Id'])
+      Success(user)
     end
 
-    def create_mangopay_wallet
+    def create_mangopay_wallet(user)
       mangopay_wallet = MangoPay::Wallet.create(
-        Owners: [@user.mangopay_id],
-        Description: "#{@user.first_name} #{@user.last_name}'s wallet",
+        Owners: [user.mangopay_id],
+        Description: "#{user.first_name} #{user.last_name}'s wallet",
         Currency: "EUR"
       )
-      @user.update!(wallet_id: mangopay_wallet['Id'])
-      Success(user: @user, mangopay_wallet: mangopay_wallet)
+      user.update!(wallet_id: mangopay_wallet['Id'])
+      Success(user)
     end
 
-    def send_welcome_email(attributes)
-      UserMailer.with(user: @user).welcome_email.deliver_now
+    def send_welcome_email(user)
+      UserMailer.with(user: user).welcome_email.deliver_now
     end
   end
 end
