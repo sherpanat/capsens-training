@@ -32,7 +32,7 @@ RSpec.describe Contributions::CreateTransaction do
         expect(subject.success.counterpart).to eq(counterpart)
       end
       it "sets payin_id" do
-        expect(subject.success[:contribution].payin_id).to eq "1"
+        expect(subject.success.payin_id).to eq "1"
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe Contributions::CreateTransaction do
       let(:contribution_attributes) { attributes_for(:contribution, amount: 20).merge(project_id: project.id, user_id: user.id) }
       it { expect { subject }.to change { Contribution.count }.by(1) }
       it "sets payin_id" do
-        expect(subject.success[:contribution].payin_id).to eq "1"
+        expect(subject.success.payin_id).to eq "1"
       end
     end
   end
