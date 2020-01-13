@@ -1,13 +1,14 @@
 class ContributionsController < ApplicationController
   before_action :authenticate_user!
+  decorates_assigned :project
 
   def new
-    @project = project
+    @project = get_project
     @contribution = Contribution.new(user: current_user, project: @project)
   end
   
   def create
-    @project = project
+    @project = get_project
     result = Contributions::CreateTransaction.call(contribution_params.merge(project: @project, user: current_user))
     if result.success
       redirect_to result.success[:payin_attributes]["RedirectURL"]
@@ -23,8 +24,7 @@ class ContributionsController < ApplicationController
     params.require(:contribution).permit(:amount, :counterpart_id)
   end
 
-  def project
-    @decorated_project ||= Project.find(params[:project_id]).decorate
+  def get_project
+    Project.find(params[:project_id])
   end
-  helper_method :project
 end

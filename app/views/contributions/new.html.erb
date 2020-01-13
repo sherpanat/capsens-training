@@ -12,7 +12,7 @@
 
     <div class="field form-group">
       <%= f.label t('.chosen_counterpart') %><br />
-      <%= f.collection_radio_buttons :counterpart_id, @project.counterparts, :id, :description_with_threshold, class: "form-control" %>
+      <%= f.collection_radio_buttons :counterpart_id, project.counterparts, :id, :description_with_threshold, class: "form-control" %>
     </div>
 
     <div class="actions">
