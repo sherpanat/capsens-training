@@ -13,7 +13,6 @@ class ContributionsController < ApplicationController
       redirect_to users_dashboards_path
     else
       @contribution = result.failure[:contribution]
-      @counterparts = set_counterparts
       render :new
     end
   end
