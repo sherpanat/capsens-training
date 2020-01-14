@@ -25,10 +25,10 @@ RSpec.describe Projects::CreateTransaction do
     end
     it { expect { subject }.to change { Project.count }.by(1) }
     it "sets mangopay_id" do
-      expect(subject.success[:project].mangopay_id).to eq "1"
+      expect(subject.success.mangopay_id).to eq "1"
     end
     it "sets wallet_id" do
-      expect(subject.success[:project].wallet_id).to eq "2"
+      expect(subject.success.wallet_id).to eq "2"
     end
   end
 
