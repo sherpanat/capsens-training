@@ -1,1 +1,22 @@
+<div class="d-table margin-auto">
+  <h2><%= t('.choose_your_contribution_and_counterpart') %> <%= @project.name %></h2>
 
+  <%= form_for @contribution, url: project_contributions_path do |f| %>
+    <%= render "devise/shared/error_messages", resource: @contribution %>
+
+
+    <div class="field form-group">
+      <%= f.label t('.chosen_amount') %><br />
+      <%= f.number_field :amount, class: "form-control"%>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label t('.chosen_counterpart') %><br />
+      <%= f.collection_radio_buttons :counterpart_id, project.counterparts, :id, :description_with_threshold, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit t('.contribute'), class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

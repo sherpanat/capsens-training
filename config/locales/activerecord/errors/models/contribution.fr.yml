@@ -1,0 +1,8 @@
+fr:
+  activerecord:  
+    errors:
+      models:
+        contribution:
+          attributes:
+            counterpart:
+              amount_lower_than_threshold: "Montant trop faible pour cette validation"

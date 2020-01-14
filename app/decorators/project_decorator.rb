@@ -1,6 +1,7 @@
 class ProjectDecorator < ApplicationDecorator
   delegate_all
   decorates_association :contributions
+  decorates_association :counterparts
 
   def higher_contribution
     ordered_contributions_amount.first
