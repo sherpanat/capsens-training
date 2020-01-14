@@ -26,13 +26,17 @@ RSpec.describe Contributions::UpdateTransaction do
         CreditedWalletId: "1"
       ).and_return("Balance"=> { "Currency" => "EUR", "Amount" => 0 }, "Id" => "2")
     end
-    let(:contribution) { create(:contribution, amount: 20) }
+    let(:contribution) { create(:contribution, amount: 20, wallet_id: nil) }
     let(:contribution_attributes) { contribution.attributes }
     it "sets wallet_id" do
       expect(subject.success.wallet_id).to eq "1"
     end
     it "sets transfer_id" do
       expect(subject.success.transfer_id).to eq "2"
+    end
+    it do
+      subject
+      expect(contribution).to transition_from(:pending).to(:payed).on_event(:pay)
     end
   end
 end

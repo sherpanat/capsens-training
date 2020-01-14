@@ -33,6 +33,7 @@ module Contributions
         CreditedWalletId: contribution.wallet_id
       )
       contribution.update!(transfer_id: transfer['Id'])
+      contribution.pay! if transfer["Status"] == "SUCCEEDED"
       Success(contribution)
     end
   end
