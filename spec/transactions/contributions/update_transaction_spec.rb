@@ -24,7 +24,7 @@ RSpec.describe Contributions::UpdateTransaction do
         },
         DebitedWalletId: contribution.user.wallet_id,
         CreditedWalletId: "1"
-      ).and_return("Balance"=> { "Currency" => "EUR", "Amount" => 0 }, "Id" => "2")
+      ).and_return("Id" => "2")
     end
     let(:contribution) { create(:contribution, amount: 20, wallet_id: nil) }
     let(:contribution_attributes) { contribution.attributes }
