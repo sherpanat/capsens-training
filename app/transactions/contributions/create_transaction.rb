@@ -1,6 +1,5 @@
 module Contributions
   class CreateTransaction < ::BaseTransaction
-    include Rails.application.routes.url_helpers
     step :validate_counterpart
     step :create_contribution
     step :pay_in_user_wallet
