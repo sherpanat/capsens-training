@@ -53,6 +53,7 @@ ActiveAdmin.register Project do
   
   member_action :end_collect do
     resource.end_collect!
+    Projects::EndCollectTransaction.call(resource.project) if resource.success?
     redirect_to admin_project_path(resource)
   end
 
@@ -89,7 +90,7 @@ ActiveAdmin.register Project do
     def create
       result = Projects::CreateTransaction.call(permitted_params[:project])
       if result.success
-        @resource = result.success[:project]
+        @resource = result.success
         redirect_to admin_project_path(@resource)
       else
         @resource = result.failure[:project]
