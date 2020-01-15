@@ -1,5 +1,5 @@
 RSpec.describe Contributions::UpdateTransaction do
-  subject { described_class.call(contribution_attributes) }
+  subject { described_class.call(contribution) }
 
   context "Update a contribution with valid attributes" do
     before "creates a MangoPay::Wallet for the contribution" do
@@ -27,11 +27,10 @@ RSpec.describe Contributions::UpdateTransaction do
       ).and_return("Id" => "2")
     end
     let(:contribution) { create(:contribution, amount: 20, wallet_id: nil) }
-    let(:contribution_attributes) { contribution.attributes }
     it "sets wallet_id" do
       expect(subject.success.wallet_id).to eq "1"
     end
-    it "sets transfer_id" do
+    it "sets transfer_to_contribution_wallet_id" do
       expect(subject.success.transfer_to_contribution_wallet_id).to eq "2"
     end
     it do

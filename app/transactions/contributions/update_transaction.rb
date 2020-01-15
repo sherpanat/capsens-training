@@ -3,10 +3,9 @@ module Contributions
     step :find_or_create_user_contribution_wallet
     step :transfer_from_user_to_contribution_wallet
 
-    def find_or_create_user_contribution_wallet(attributes)
-      contribution = Contribution.find(attributes['id'])
-      project = Project.find(attributes['project_id'])
-      user = User.find(attributes['user_id'])
+    def find_or_create_user_contribution_wallet(contribution)
+      project = Project.find(contribution.project_id)
+      user = User.find(contribution.user_id)
       return Success(contribution) if contribution.wallet_id
       contribution_wallet = MangoPay::Wallet.create(
         Owners: [user.mangopay_id],
