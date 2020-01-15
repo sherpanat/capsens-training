@@ -6,7 +6,8 @@ module Contributions
     step :pay_in_user_wallet
 
     def validate_counterpart(attributes)
-      contribution = Contribution.new(attributes)
+      @return_url = attributes[:return_url]
+      contribution = Contribution.new(attributes.except(:return_url))
       return Success(contribution) unless contribution.counterpart
       if contribution.amount < contribution.counterpart.threshold
         contribution.errors.add(:counterpart, :amount_lower_than_threshold)
@@ -38,7 +39,7 @@ module Contributions
           Amount: 0
         },
         CardType: "CB_VISA_MASTERCARD",
-        ReturnURL: "#{url_for({action: 'index', controller: 'projects'}.merge(Rails.configuration.x.absolute_url_options))}",
+        ReturnURL: "#{@return_url}",
         Culture: "FR"
       )
       contribution.update!(payin_id: payin_attributes['Id'])

@@ -1,6 +1,6 @@
 RSpec.describe Contributions::CreateTransaction do
-  subject { described_class.call(contribution_attributes) }
-
+  subject { described_class.call(contribution_attributes.merge(return_url: return_url)) }
+  let(:return_url) { "http://localhost:3000/projects" }
   context "Create a contribution with valid attributes" do
     before "creates a MangoPay::Payin::Card::Web" do
       expect(MangoPay::PayIn::Card::Web).to receive(:create).with(
@@ -16,7 +16,7 @@ RSpec.describe Contributions::CreateTransaction do
           Amount: 0
         },
         CardType: "CB_VISA_MASTERCARD",
-        ReturnURL: "http://localhost:3000/projects",
+        ReturnURL: return_url,
         Culture: "FR"
       ).and_return("Id" => "1")
     end
