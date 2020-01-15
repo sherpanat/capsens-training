@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_13_110557) do
+ActiveRecord::Schema.define(version: 2020_01_15_085530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,7 +62,8 @@ ActiveRecord::Schema.define(version: 2020_01_13_110557) do
     t.string "aasm_state"
     t.string "payin_id"
     t.string "wallet_id"
-    t.string "transfer_id"
+    t.string "transfer_to_contribution_wallet_id"
+    t.string "transfer_to_project_wallet_id"
     t.index ["counterpart_id"], name: "index_contributions_on_counterpart_id"
     t.index ["project_id"], name: "index_contributions_on_project_id"
     t.index ["user_id"], name: "index_contributions_on_user_id"

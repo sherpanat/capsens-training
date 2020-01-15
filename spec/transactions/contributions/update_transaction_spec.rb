@@ -32,7 +32,7 @@ RSpec.describe Contributions::UpdateTransaction do
       expect(subject.success.wallet_id).to eq "1"
     end
     it "sets transfer_id" do
-      expect(subject.success.transfer_id).to eq "2"
+      expect(subject.success.transfer_to_contribution_wallet_id).to eq "2"
     end
     it do
       subject
