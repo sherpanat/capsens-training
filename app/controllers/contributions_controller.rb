@@ -12,7 +12,7 @@ class ContributionsController < ApplicationController
     result = Contributions::CreateTransaction.call(contribution_params.merge(
       project: @project,
       user: current_user,
-      url_for({action: 'index', controller: 'projects'}.merge(Rails.configuration.x.absolute_url_options))
+      return_url: url_for({action: 'index', controller: 'projects'})
     ))
     if result.success
       redirect_to result.success[:redirect_url]
