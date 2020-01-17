@@ -1,5 +1,6 @@
 ActiveAdmin.register Project do
-  permit_params :name, :short_description, :long_description, :email, :owner_first_name, :owner_last_name, :owner_birthdate, :target_amount, :category_id, :thumbnail, :landscape
+  permit_params :name, :short_description, :long_description, :email, :category_id, :target_amount,
+                :owner_first_name, :owner_last_name, :owner_birthdate, :thumbnail, :landscape
   decorate_with ProjectDecorator
 
   scope :all, default: true
