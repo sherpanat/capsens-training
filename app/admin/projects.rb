@@ -54,7 +54,8 @@ ActiveAdmin.register Project do
   
   member_action :end_collect do
     resource.end_collect!
-    Projects::EndCollectTransaction.call(resource.project) if resource.success?
+    result = Projects::EndCollectTransaction.call(resource.project) if resource.success?
+    flash[:notice] = "Ids of failed mangopay transfers: #{result.failure.pluck("Id").join(", ")}" unless result.success
     redirect_to admin_project_path(resource)
   end
 
