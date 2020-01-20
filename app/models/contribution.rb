@@ -9,14 +9,16 @@ class Contribution < ApplicationRecord
 
   aasm whiny_transitions: false do
     state :pending, initial: true
-    state :payed
-    state :cancelled
+    state :payed, :cancelled, :transfered
 
     event :pay do
       transitions from: :pending, to: :payed
     end
+    event :collect do
+      transitions from: :payed, to: :transfered
+    end
     event :cancel do
-      transitions from: :pending, to: :cancelled
+      transitions from: [:pending, :payed], to: :cancelled
     end
   end
 end
