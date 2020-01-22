@@ -9,9 +9,14 @@ class ContributionsController < ApplicationController
   
   def create
     @project = get_project
-    result = Contributions::CreateTransaction.call(contribution_params.merge(project: @project, user: current_user))
+    result = Contributions::CreateTransaction.call(
+      **contribution_params.to_h.symbolize_keys,
+      project: @project,
+      user: current_user,
+      return_url: projects_url
+    )
     if result.success
-      redirect_to users_dashboards_path
+      redirect_to result.success[:redirect_url]
     else
       @contribution = result.failure[:contribution]
       render :new

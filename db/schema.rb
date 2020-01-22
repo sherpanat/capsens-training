@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_103638) do
+ActiveRecord::Schema.define(version: 2020_01_15_085530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,11 @@ ActiveRecord::Schema.define(version: 2019_12_11_103638) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "counterpart_id"
+    t.string "aasm_state"
+    t.string "payin_id"
+    t.string "wallet_id"
+    t.string "transfer_to_contribution_wallet_id"
+    t.string "transfer_to_project_wallet_id"
     t.index ["counterpart_id"], name: "index_contributions_on_counterpart_id"
     t.index ["project_id"], name: "index_contributions_on_project_id"
     t.index ["user_id"], name: "index_contributions_on_user_id"
@@ -85,6 +90,12 @@ ActiveRecord::Schema.define(version: 2019_12_11_103638) do
     t.text "thumbnail_data"
     t.text "landscape_data"
     t.string "aasm_state"
+    t.string "owner_first_name"
+    t.string "owner_last_name"
+    t.date "owner_birthdate"
+    t.string "email"
+    t.string "mangopay_id"
+    t.string "wallet_id"
     t.index ["category_id"], name: "index_projects_on_category_id"
   end
 
@@ -104,6 +115,8 @@ ActiveRecord::Schema.define(version: 2019_12_11_103638) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.date "birthdate", null: false
+    t.string "mangopay_id"
+    t.string "wallet_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

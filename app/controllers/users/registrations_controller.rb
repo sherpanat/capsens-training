@@ -11,7 +11,7 @@ module Users
         sign_up(resource_name, @resource)
         respond_with @resource, location: after_sign_up_path_for(@resource)
       else
-        @resource = result.failure[:user]
+        @resource = result.failure
         render :new
       end
     end

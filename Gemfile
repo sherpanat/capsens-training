@@ -31,6 +31,7 @@ gem 'devise-i18n'
 gem 'shrine'
 gem 'seedbank'
 gem 'aasm'
+gem 'mangopay'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

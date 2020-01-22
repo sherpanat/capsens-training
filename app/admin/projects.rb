@@ -1,5 +1,6 @@
 ActiveAdmin.register Project do
-  permit_params :name, :short_description, :long_description, :target_amount, :category_id, :thumbnail, :landscape
+  permit_params :name, :short_description, :long_description, :email, :category_id, :target_amount,
+                :owner_first_name, :owner_last_name, :owner_birthdate, :thumbnail, :landscape
   decorate_with ProjectDecorator
 
   scope :all, default: true
@@ -53,6 +54,8 @@ ActiveAdmin.register Project do
   
   member_action :end_collect do
     resource.end_collect!
+    result = Projects::EndCollectTransaction.call(resource.project) if resource.success?
+    flash[:notice] = "Ids of failed mangopay transfers: #{result.failure.pluck("Id").join(", ")}" unless result.success
     redirect_to admin_project_path(resource)
   end
 
@@ -65,6 +68,10 @@ ActiveAdmin.register Project do
       f.input :name
       f.input :short_description
       f.input :long_description
+      f.input :email
+      f.input :owner_first_name
+      f.input :owner_last_name
+      f.input :owner_birthdate
       f.input :target_amount
       f.input :category, as: :select
       f.input(
@@ -82,6 +89,17 @@ ActiveAdmin.register Project do
   end
   
   controller do
+    def create
+      result = Projects::CreateTransaction.call(permitted_params[:project])
+      if result.success
+        @resource = result.success
+        redirect_to admin_project_path(@resource)
+      else
+        @resource = result.failure[:project]
+        render :new
+      end
+    end
+
     def scoped_collection
       super.includes(contributions: :user)
     end

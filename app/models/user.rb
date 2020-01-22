@@ -6,5 +6,5 @@ class User < ApplicationRecord
   has_many :contributions
   has_many :projects, through: :contributions
 
-  validates :first_name, :last_name, :birthdate, presence: true
+  validates :email, :first_name, :last_name, :birthdate, presence: true
 end
